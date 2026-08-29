@@ -1,0 +1,156 @@
+---
+import { getCollection } from "astro:content";
+import "../styles/global.css";
+
+const { note } = Astro.props;
+const notes = (await getCollection("writing")).sort((a, b) =>
+  a.data.date < b.data.date ? 1 : -1,
+);
+
+const site = "https://dimslaev.com";
+const url = note ? `${site}/writing/${note.id}` : `${site}/`;
+const title = note ? `${note.data.title} — dimslaev` : "dimslaev";
+const desc = note
+  ? note.data.desc
+  : "Short dev and AI notes by Dimitar Slaev — software engineer at Infomaniak. LLMs, RAG, agents, data pipelines, agentic coding.";
+
+const ld = note
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: note.data.title,
+      datePublished: note.data.date,
+      dateModified: note.data.date,
+      description: note.data.desc,
+      url,
+      mainEntityOfPage: url,
+      author: { "@type": "Person", name: "Dimitar Slaev", url: site },
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: "dimslaev",
+      author: {
+        "@type": "Person",
+        name: "Dimitar Slaev",
+        url: site,
+        sameAs: [
+          "https://github.com/dimslaev",
+          "https://www.linkedin.com/in/dimslaev/",
+        ],
+      },
+    };
+
+const gitIcon =
+  "M13,14C9.64,14 8.54,15.35 8.18,16.24C9.25,16.7 10,17.76 10,19A3,3 0 0,1 7,22A3,3 0 0,1 4,19C4,17.69 4.83,16.58 6,16.17V7.83C4.83,7.42 4,6.31 4,5A3,3 0 0,1 7,2A3,3 0 0,1 10,5C10,6.31 9.17,7.42 8,7.83V13.12C8.88,12.47 10.16,12 12,12C14.67,12 15.56,10.66 15.85,9.77C14.77,9.32 14,8.25 14,7A3,3 0 0,1 17,4A3,3 0 0,1 20,7C20,8.34 19.13,9.5 17.92,9.87C17.55,11.29 16.5,14 13,14M7,18A1,1 0 0,0 6,19A1,1 0 0,0 7,20A1,1 0 0,0 8,19A1,1 0 0,0 7,18M7,4A1,1 0 0,0 6,5A1,1 0 0,0 7,6A1,1 0 0,0 8,5A1,1 0 0,0 7,4M17,6A1,1 0 0,0 16,7A1,1 0 0,0 17,8A1,1 0 0,0 18,7A1,1 0 0,0 17,6Z";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <meta name="author" content="Dimitar Slaev" />
+    <link rel="canonical" href={url} />
+    <meta property="og:type" content={note ? "article" : "website"} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={url} />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>"
+    />
+    <link rel="preload" href="/fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <div class="workspace" data-open={note ? "true" : "false"}>
+      <section class="pane pane-list">
+        <div class="pane-prompt">
+          <span class="p-user">dimitar</span>
+          <span class="p-path">~/dimslaev</span>
+          <span class="p-git"
+            ><svg viewBox="0 0 24 24"><path d={gitIcon}></path></svg>main</span
+          >
+          <span class="p-sym">$</span>
+          <span class="p-cmd">ls writing/</span>
+        </div>
+        <div class="pane-body">
+          <p class="intro">
+            hi, i'm <span class="name">dimitar</span> — a software engineer at <span
+              class="mention">infomaniak</span
+            >. i tinker with ai: llms, rag, agents, small data pipelines. stack
+            is <span class="tok">typescript</span> and <span class="tok"
+              >python</span
+            >, frontend and full-stack. most recently i built <a
+              href="https://agentique.ch">agentique.ch</a
+            >, a platform for ai news.
+          </p>
+          <h2 class="notes-h">writing</h2>
+          <ul class="notes">
+            {
+              notes.map((n) => (
+                <li>
+                  <a
+                    class:list={["note-link", { active: note?.id === n.id }]}
+                    href={`/writing/${n.id}`}
+                  >
+                    <time datetime={n.data.date}>{n.data.date}</time>
+                    <span class="nt">{n.data.title}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="foot">
+            — <a href="https://github.com/dimslaev">github</a> · <a
+              href="https://www.linkedin.com/in/dimslaev/">linkedin</a
+            >
+          </div>
+        </div>
+      </section>
+
+      {
+        note && (
+          <section class="pane pane-note">
+            <div class="pane-prompt">
+              <span class="p-user">dimitar</span>
+              <span class="p-path">~/dimslaev</span>
+              <span class="p-git">
+                <svg viewBox="0 0 24 24">
+                  <path d={gitIcon} />
+                </svg>
+                main
+              </span>
+              <span class="p-sym">$</span>
+              <span class="p-cmd">cat writing/{note.id}.md</span>
+              <a class="pane-close" href="/" aria-label="close pane">
+                <svg viewBox="0 0 24 24">
+                  <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                </svg>
+              </a>
+            </div>
+            <div class="pane-body">
+              <a class="back" href="/">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                </svg>
+                back
+              </a>
+              <article>
+                <h1>{note.data.title}</h1>
+                <span class="meta">{note.data.date} · note</span>
+                <div class="body">
+                  <slot />
+                </div>
+              </article>
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </body>
+</html>
