@@ -1,6 +1,6 @@
 ---
 title: "distilling a filter so the model runs less"
-date: "2026-07-29"
+date: "2026-07-10"
 desc: "Moving the keep/drop first pass into a distilled static classifier cut cost and latency on every ingestion run."
 ---
 

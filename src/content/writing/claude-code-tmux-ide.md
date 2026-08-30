@@ -1,6 +1,6 @@
 ---
 title: "claude code + tmux is my whole ide now"
-date: "2026-07-02"
+date: "2026-07-22"
 desc: "neovim, tmux and Claude Code on Max, plus an agent loop that reads the pipeline's own logs and opens PRs."
 ---
 
