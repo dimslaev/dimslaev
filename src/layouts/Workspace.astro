@@ -16,10 +16,10 @@ const readLen = (body = "") => {
 
 const site = "https://dimslaev.com";
 const url = note ? `${site}/writing/${note.id}` : `${site}/`;
-const title = note ? `${note.data.title} — dimslaev` : "dimslaev";
+const title = note ? `${note.data.title} — Dimslaev` : "Dimslaev - Software engineer, LLM-powered applications, TypeScript, Node.js, Python.";
 const desc = note
   ? note.data.desc
-  : "Short dev and AI notes by Dimitar Slaev — software engineer at Infomaniak. LLMs, RAG, agents, data pipelines, agentic coding.";
+  : "Software engineer based in Geneva, Switzerland. LLM-powered applications, TypeScript, Node.js, Python.";
 
 const ld = note
   ? {
