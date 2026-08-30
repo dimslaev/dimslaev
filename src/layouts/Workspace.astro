@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 
 const { note } = Astro.props;
@@ -79,6 +80,7 @@ const logo = `██████╗ ██╗███╗   ███╗██�
     <link rel="preload" href="/fonts/JetBrainsMono-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/JetBrainsMono-600.woff2" as="font" type="font/woff2" crossorigin />
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <Analytics />
   </head>
   <body>
     <div class="workspace" data-open={note ? "true" : "false"}>
