@@ -20,10 +20,10 @@ const readIso = (body = "") => {
 };
 
 // Derive everything from Astro.site so canonicals cannot drift from the
-// sitemap. Trailing slashes match the directory-style build output.
+// sitemap. Paths carry no trailing slash, matching trailingSlash: never.
 const site = Astro.site ?? new URL("https://dimslaev.com");
 const href = (p) => new URL(p, site).href;
-const path = note ? `/writing/${note.id}/` : "/";
+const path = note ? `/writing/${note.id}` : "/";
 const url = href(path);
 
 const title = note
@@ -79,7 +79,7 @@ const ld = note
         description: n.data.desc,
         datePublished: n.data.date,
         dateModified: n.data.updated ?? n.data.date,
-        url: href(`/writing/${n.id}/`),
+        url: href(`/writing/${n.id}`),
       })),
     };
 
@@ -200,7 +200,7 @@ const logo = `██████╗ ██╗███╗   ███╗██�
                 <li>
                   <a
                     class:list={["row", { active: note?.id === n.id }]}
-                    href={`/writing/${n.id}/`}
+                    href={`/writing/${n.id}`}
                   >
                     <time datetime={n.data.date}>{n.data.date}</time>
                     <span class="code">[200]</span>
