@@ -1,7 +1,7 @@
 ---
 title: "write like julia evans"
 date: "2026-09-10"
-desc: "Instead of retyping 'plain language, fewer bullets, stop overformatting' every session, I tell the agent to write like Simon Willison, Martin Fowler, or Julia Evans."
+desc: "Naming a writer beats listing tone rules. The same bug fix explained four ways, and why the plainest one wins."
 ---
 
 Quite often I find myself asking my agent to explain things simply, because I just don't understand what it says. It's either too long, too dense, too technical, or - the one that really gets me - too much markdown formatting. So I have to ask it: _use plain language, less markdown formatting, short bullet points, explain the main idea simply before the detail_.
@@ -48,4 +48,6 @@ Four descriptions of the same fix. The last one is the only one you can read onc
 
 Julia Evans, almost always. Plain words come first, the depth is still all there, and there's nothing to clean up afterwards - no heading pileups, no bold on every third phrase, no term used before it's explained.
 
-Fowler when the doc goes to review and every decision needs its reasoning attached. Willison when I'm writing up a workflow or a tool I just wired together. Everything else: write like Julia Evans.
+Fowler when the doc goes to review and every decision needs its reasoning attached. Willison when I'm writing up a workflow or a tool I just wired together.
+
+More on building with AI dev tools over at [agentique.ch](https://agentique.ch).
