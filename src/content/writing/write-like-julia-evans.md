@@ -6,7 +6,7 @@ desc: "Naming a writer beats listing tone rules. The same bug fix explained four
 
 Quite often I find myself asking my agent to explain things simply, because I just don't understand what it says. It's either too long, too dense, too technical, or - the one that really gets me - too much markdown formatting. So I have to ask it: _use plain language, less markdown formatting, short bullet points, explain the main idea simply before the detail_.
 
-Lately I've stopped writing that list. I just tell it to write like a specific person - [Julia Evans](https://jvns.ca), [Martin Fowler](https://martinfowler.com), [Simon Willison](https://simonwillison.net) - and it holds the voice for the rest of the session.
+Lately I've stopped writing that list. I just tell it to write like a specific person - Julia Evans, Martin Fowler, Simon Willison - and it holds the voice for the rest of the session.
 
 Here's a real example, pulled from a Claude session. Same bug fix, four ways.
 
@@ -16,7 +16,7 @@ Here's a real example, pulled from a Claude session. Same bug fix, four ways.
 
 Reads fine to the person who wrote it, nobody else.
 
-## Martin Fowler
+## [Martin Fowler](https://martinfowler.com)
 
 Calm, neutral, states the tradeoff. Flowing paragraphs. Probably best for non-technical documentation like business logic or overviews.
 
@@ -24,7 +24,7 @@ Calm, neutral, states the tradeoff. Flowing paragraphs. Probably best for non-te
 >
 > Renaming the local binding removes the ambiguity. Making the barrel's export explicit is the more interesting part of the change: it means the next collision fails at build time rather than silently resolving to the wrong value.
 
-## Simon Willison
+## [Simon Willison](https://simonwillison.net)
 
 Practical, first person: here's what I changed and why. Plain sentences, names the tools directly, short paragraphs, almost no formatting. Best for workflow write-ups and tool notes.
 
@@ -32,7 +32,7 @@ Practical, first person: here's what I changed and why. Plain sentences, names t
 >
 > I renamed the local binding and made the barrel export explicit, so next time this happens it errors instead of quietly picking one.
 
-## Julia Evans
+## [Julia Evans](https://jvns.ca)
 
 Friendly, concrete, plain words, no jargon without a gloss. Short paragraphs, flat bullets, a bit of **bold**, but it's acceptable.
 
