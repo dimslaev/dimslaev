@@ -1,7 +1,7 @@
 ---
 title: "tmux is awesome"
 date: "2026-08-30"
-desc: "A tmux hub command that rebuilds a window-per-project layout — claude code, opencode, dev server and git in always-open panes, one prefix+n away."
+desc: "A tmux hub command that rebuilds a window-per-project layout, with claude code, opencode, dev server and git in always-open panes, one prefix+n away."
 ---
 
 i recently started using `tmux` — a terminal multiplexer that splits a single terminal into multiple sessions, each with its own windows, and each window splittable into panes. it's awesome. one tip before diving in: if you're on mac, run it inside iterm2 rather than the default terminal app.
