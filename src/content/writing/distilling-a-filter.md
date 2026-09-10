@@ -8,4 +8,4 @@ per-item llm calls stop making sense the moment ingestion volume is real. every 
 
 so i distilled the keep/drop decision. the llm had already produced thousands of labelled examples just by doing its job; a small static classifier trained on those agrees with it closely enough to be the high-recall first pass.
 
-the expensive model now only sees what survives the cheap filter. same quality bar, a fraction of the calls. the agreement rate between the two is also a number i can watch — free evaluation signal.
+the expensive model now only sees what survives the cheap filter. same quality bar, a fraction of the calls. the agreement rate between the two is also a number i can watch, a free evaluation signal.

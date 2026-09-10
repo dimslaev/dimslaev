@@ -8,44 +8,79 @@ const notes = (await getCollection("writing")).sort((a, b) =>
   a.data.date < b.data.date ? 1 : -1,
 );
 
+const words = (body = "") => body.trim().split(/\s+/).filter(Boolean).length;
+const readSecs = (body = "") => Math.max(5, Math.round((words(body) / 230) * 60));
 const readLen = (body = "") => {
-  const w = body.trim().split(/\s+/).filter(Boolean).length;
-  const s = Math.max(5, Math.round((w / 230) * 60));
+  const s = readSecs(body);
   return s < 100 ? `${s}s` : `${Math.round(s / 60)}m`;
 };
+const readIso = (body = "") => {
+  const s = readSecs(body);
+  return s < 60 ? `PT${s}S` : `PT${Math.round(s / 60)}M`;
+};
 
-const site = "https://dimslaev.com";
-const url = note ? `${site}/writing/${note.id}` : `${site}/`;
-const title = note ? `${note.data.title} — Dimslaev` : "Dimslaev - Software engineer, LLM-powered applications, TypeScript, Node.js, Python.";
+// Derive everything from Astro.site so canonicals cannot drift from the
+// sitemap. Paths carry no trailing slash, matching trailingSlash: never.
+const site = Astro.site ?? new URL("https://dimslaev.com");
+const href = (p) => new URL(p, site).href;
+const path = note ? `/writing/${note.id}` : "/";
+const url = href(path);
+
+const title = note
+  ? `${note.data.title} · Dimslaev`
+  : "Dimitar Slaev - Software engineer, LLM applications";
 const desc = note
   ? note.data.desc
   : "Software engineer based in Geneva, Switzerland. LLM-powered applications, TypeScript, Node.js, Python.";
+
+const published = note?.data.date;
+const modified = note?.data.updated ?? published;
+
+const person = {
+  "@type": "Person",
+  name: "Dimitar Slaev",
+  url: href("/"),
+  jobTitle: "Software engineer",
+  sameAs: [
+    "https://github.com/dimslaev",
+    "https://www.linkedin.com/in/dimslaev/",
+  ],
+};
 
 const ld = note
   ? {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       headline: note.data.title,
-      datePublished: note.data.date,
-      dateModified: note.data.date,
       description: note.data.desc,
+      datePublished: published,
+      dateModified: modified,
       url,
       mainEntityOfPage: url,
-      author: { "@type": "Person", name: "Dimitar Slaev", url: site },
+      inLanguage: "en",
+      wordCount: words(note.body),
+      timeRequired: readIso(note.body),
+      author: person,
+      publisher: person,
+      isPartOf: { "@type": "Blog", name: "dimslaev", url: href("/") },
     }
   : {
       "@context": "https://schema.org",
       "@type": "Blog",
       name: "dimslaev",
-      author: {
-        "@type": "Person",
-        name: "Dimitar Slaev",
-        url: site,
-        sameAs: [
-          "https://github.com/dimslaev",
-          "https://www.linkedin.com/in/dimslaev/",
-        ],
-      },
+      url: href("/"),
+      description: desc,
+      inLanguage: "en",
+      author: person,
+      publisher: person,
+      blogPost: notes.map((n) => ({
+        "@type": "BlogPosting",
+        headline: n.data.title,
+        description: n.data.desc,
+        datePublished: n.data.date,
+        dateModified: n.data.updated ?? n.data.date,
+        url: href(`/writing/${n.id}`),
+      })),
     };
 
 const gitIcon =
@@ -69,9 +104,29 @@ const logo = `██████╗ ██╗███╗   ███╗██�
     <meta name="author" content="Dimitar Slaev" />
     <link rel="canonical" href={url} />
     <meta property="og:type" content={note ? "article" : "website"} />
+    <meta property="og:site_name" content="dimslaev" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={url} />
+    {
+      note && (
+        <>
+          <meta property="article:published_time" content={published} />
+          <meta property="article:modified_time" content={modified} />
+          <meta property="article:author" content="Dimitar Slaev" />
+        </>
+      )
+    }
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="dimslaev - writing"
+      href={href("/rss.xml")}
+    />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>"
@@ -94,6 +149,14 @@ const logo = `██████╗ ██╗███╗   ███╗██�
           <span class="pcmd">ls writing/</span>
         </div>
         <div class="pane-body">
+          {
+            !note && (
+              <h1 class="vh">
+                Dimitar Slaev - software engineer building LLM-powered
+                applications
+              </h1>
+            )
+          }
           <pre class="logo" role="img" aria-label="dimslaev">{logo}</pre>
 
           <dl class="idcard">
@@ -125,12 +188,12 @@ const logo = `██████╗ ██╗███╗   ███╗██�
               <dd>
                 <a href="https://github.com/dimslaev">github</a> · <a
                   href="https://www.linkedin.com/in/dimslaev/">linkedin</a
-                >
+                > · <a href="/rss.xml">rss</a>
               </dd>
             </div>
           </dl>
 
-          <div class="log-h">writing/</div>
+          <h2 class="log-h">writing/</h2>
           <ul class="log">
             {
               notes.map((n) => (
@@ -179,7 +242,9 @@ const logo = `██████╗ ██╗███╗   ███╗██�
               </a>
               <article>
                 <h1>{note.data.title}</h1>
-                <span class="sub">{note.data.date} · note</span>
+                <span class="sub">
+                  <time datetime={published}>{published}</time> · note
+                </span>
                 <div class="body">
                   <slot />
                 </div>
