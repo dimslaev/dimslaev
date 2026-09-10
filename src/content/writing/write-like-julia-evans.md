@@ -6,7 +6,7 @@ desc: "Naming a writer beats listing tone rules. The same bug fix explained four
 
 Quite often I find myself asking my agent to explain things simply, because I just don't understand what it says. It's either too long, too dense, too technical, or - the one that really gets me - too much markdown formatting. So I have to ask it: _use plain language, less markdown formatting, short bullet points, explain the main idea simply before the detail_.
 
-Lately I've stopped writing that list. I just tell it to write like a specific person - Julia Evans, Martin Fowler, Simon Willison - and it holds the voice for the rest of the session.
+Lately I've stopped writing that list. I just tell it to write like a specific person - [Julia Evans](https://jvns.ca), [Martin Fowler](https://martinfowler.com), [Simon Willison](https://simonwillison.net) - and it holds the voice for the rest of the session.
 
 Here's a real example, pulled from a Claude session. Same bug fix, four ways.
 
