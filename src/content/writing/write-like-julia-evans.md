@@ -18,7 +18,7 @@ Reads fine to the person who wrote it, nobody else.
 
 ## [Martin Fowler](https://martinfowler.com)
 
-Calm, neutral, states the tradeoff. Flowing paragraphs. Probably best for non-technical documentation like business logic or overviews.
+Calm, neutral, weighs tradeoffs rather than picking a side. Longer sentences. Best for documentation where every decision needs its reasoning.
 
 > The build was resolving the wrong `config`. Two bindings shared the name: one declared in the module, one re-exported through the barrel file. The bundler picked the barrel's copy, which was stale.
 >
@@ -26,7 +26,7 @@ Calm, neutral, states the tradeoff. Flowing paragraphs. Probably best for non-te
 
 ## [Simon Willison](https://simonwillison.net)
 
-Practical, first person: here's what I changed and why. Plain sentences, names the tools directly, short paragraphs, almost no formatting. Best for workflow write-ups and tool notes.
+First person and hands-on - "I tried this, here's what happened." Plain sentences, tools and commands named directly. Best for workflow write-ups and quick notes on what worked.
 
 > The bug was a name collision. `config` was declared in the file and also re-exported from the barrel, and the bundler resolved the import to the barrel's copy - the stale one.
 >
@@ -34,7 +34,7 @@ Practical, first person: here's what I changed and why. Plain sentences, names t
 
 ## [Julia Evans](https://jvns.ca)
 
-Friendly, concrete, plain words, no jargon without a gloss. Short paragraphs, flat bullets, a bit of **bold**, but it's acceptable.
+Friendly, concrete, plain words, no jargon without a gloss. Short sentences, generous bullets, and bold for the one thing that matters. Reads like someone explaining it to a friend, not writing a spec.
 
 > Two different things were both called `config`.
 >
@@ -46,8 +46,6 @@ Four descriptions of the same fix. The last one is the only one you can read onc
 
 ## What I actually use
 
-Julia Evans, almost always. Plain words come first, the depth is still all there, and there's nothing to clean up afterwards - no heading pileups, no bold on every third phrase, no term used before it's explained.
-
-Fowler when the doc goes to review and every decision needs its reasoning attached. Willison when I'm writing up a workflow or a tool I just wired together.
+Julia Evans, most of the time. Plain words come first, the depth is still all there, and there's nothing to clean up afterwards.
 
 More on building with AI dev tools over at [agentique.ch](https://agentique.ch).
